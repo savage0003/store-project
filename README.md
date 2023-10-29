@@ -1,1 +1,1 @@
-# store-project
+My project for internet store
