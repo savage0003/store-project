@@ -4,6 +4,9 @@ from users.models import User
 class ProductCategory(models.Model):
     name = models.CharField(max_length=128)
     description = models.TextField(null=True, blank=True)
+    class Meta:
+        verbose_name = 'Category'
+        verbose_name_plural = 'Categories'
 
     def __str__(self):
         return self.name
@@ -15,6 +18,10 @@ class Product(models.Model):
     quantity = models.PositiveIntegerField(default=0)
     image = models.ImageField(upload_to='products_images')
     category = models.ForeignKey(to=ProductCategory, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = 'Product'
+        verbose_name_plural = 'Products'
 
     def __str__(self):
         return f'Product: {self.name} | Category: {self.category.name}'
