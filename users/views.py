@@ -15,6 +15,7 @@ class UserLoginView(TitleMixin, LoginView):
     template_name = 'users/login.html'
     form_class = UserLoginForm
     title = 'Store - Log in'
+    success_message = 'You are logged in.'
 # def login(request):
 #     if request.method == 'POST':
 #         form = UserLoginForm(data=request.POST)
@@ -66,7 +67,7 @@ class EmailVerificationView(TitleMixin, TemplateView):
         code = kwargs['code']
         user = User.objects.get(email=kwargs['email'])
         email_verifications = EmailVerification.objects.filter(user=user, code=code)
-        if email_verifications.exists():
+        if email_verifications.exists() and not email_verifications.first().is_expired():
             user.is_verified_email = True
             user.save()
             return super(EmailVerificationView, self).get(request, *args, **kwargs)
