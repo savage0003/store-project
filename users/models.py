@@ -1,15 +1,18 @@
-from django.db import models
-from PIL import Image
-from django.core.mail import send_mail
-from django.contrib.auth.models import AbstractUser
-from django.urls import reverse
 from django.conf import settings
+from django.contrib.auth.models import AbstractUser
+from django.core.mail import send_mail
+from django.db import models
+from django.urls import reverse
 from django.utils.timezone import now
+from PIL import Image
+
 
 def crop_to_square(image):
     min_size = min(image.width, image.height)
     image = image.crop((0, 0, min_size, min_size))
     return image
+
+
 class User(AbstractUser):
     image = models.ImageField(upload_to='users_images', null=True, blank=True)
     is_verified_email = models.BooleanField(default=False)
@@ -20,6 +23,7 @@ class User(AbstractUser):
             img = Image.open(self.image.path)
             img = crop_to_square(img)
             img.save(self.image.path)
+
 
 class EmailVerification(models.Model):
     code = models.UUIDField(unique=True)
@@ -41,7 +45,7 @@ class EmailVerification(models.Model):
         send_mail(
             subject=subject,
             message=message,
-            from_email= settings.EMAIL_HOST_USER,
+            from_email=settings.EMAIL_HOST_USER,
             recipient_list=[self.user.email],
             fail_silently=False,
         )
