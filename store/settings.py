@@ -176,3 +176,4 @@ SOCIALACCOUNT_PROVIDERS = {
         ],
     }
 }
+
