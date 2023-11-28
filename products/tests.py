@@ -16,6 +16,7 @@ class IndexViewTestCase(TestCase):
         self.assertEqual(response.context_data['title'], 'Store')
         self.assertTemplateUsed(response, 'products/index.html')
 
+
 class ProductsListViewTestCase(TestCase):
     fixtures = ['categories.json', 'goods.json']
 
