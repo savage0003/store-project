@@ -1,5 +1,5 @@
 {% extends 'products/base.html' %}
-{% load static cache %}
+{% load static cache humanize %}
 
 {% block css %}
     <link href="{% static 'vendor/css/products.css' %}" rel="stylesheet">
@@ -65,7 +65,7 @@
                             <h4 class="card-title">
                                 <a href="#">{{ product.name }}</a>
                             </h4>
-                            <h5>{{ product.price }} EUR</h5>
+                            <h5>{{ product.price|intcomma }} EUR</h5>
                             <p class="card-text">{{ product.description }}</p>
                         </div>
                         <div class="card-footer text-center">
@@ -117,7 +117,7 @@
 {% block footer %}
     <footer class="py-5 bg-dark">
     <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Store 2022</p>
+        <p class="m-0 text-center text-white">Copyright &copy; Store 2023</p>
     </div>
 </footer>
 {% endblock %}
