@@ -1,11 +1,11 @@
 import stripe
-
-from django.db import models
 from django.conf import settings
+from django.db import models
 
 from users.models import User
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
+
 
 class ProductCategory(models.Model):
     name = models.CharField(max_length=128)
@@ -45,7 +45,7 @@ class Product(models.Model):
     def create_stripe_product_price(self):
         stripe_product = stripe.Product.create(name=self.name)
         stripe_product_price = stripe.Price.create(
-            product=stripe_product['id'], unit_amount=round(self.price * 100), currency='eur' )
+            product=stripe_product['id'], unit_amount=round(self.price * 100), currency='eur')
         return stripe_product_price
 
 
